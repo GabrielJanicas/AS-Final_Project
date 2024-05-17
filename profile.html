@@ -5,6 +5,11 @@
     <link rel="stylesheet" href="path/to/bootstrap.min.css">
     <script src="path/to/bootstrap.min.js"></script>
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    
     <link rel="stylesheet" href="stylesIndex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -43,7 +48,7 @@
 
 
     <div class="container">
-        <div class="row bg-primary rounded" style="height: 250px; margin-top: 2%;">
+        <div class="row rounded" style="height: 250px; margin-top: 2%; background-color: #5A6ACF; ">
             <div class="col-12 d-flex flex-column align-items-center justify-content-center">
                 <img src="images/homem_perfil.jpeg" class="rounded-circle" alt="profile" style="height: 180px;"> 
                 <h6>Carlos Inácio</h6>
@@ -77,7 +82,33 @@
                         <p><b>Account:</b> free user</p>
                     </div>
                     <div class="col-5">
-                        <a href="premium.html" class="btn btn-primary rounded-pill">Buy premium</a>
+
+                        <button type="button" style="background-color: #5A6ACF; color: white;"; class="btn rounded-pill" data-toggle="modal" data-target="#premium_pop-up" >
+                          Buy premium
+                        </button> 
+                        
+
+                        <div class="modal fade" id="premium_pop-up" tabindex="-1" role="dialog" aria-labelledby="premium_popup" aria-hidden="true">
+                          <div class="modal-dialog" role="document">
+                              <div class="modal-content">
+                                  <div class="modal-header">
+                                      <h5 class="modal-title"  id="premium_popup">Premium - 9.99€</h5>
+                                      <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+                                          <span aria-hidden="true">&times;</span>
+                                      </button>
+                                  </div>
+                                  <div class="modal-body">
+                    
+                                    <a>Premium grants access to  all the data collected, so the analysis is more precise.</a>
+                                      
+                                  </div>
+                                  <div class="modal-footer">
+                                      <button type="button" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Make Payment</button>
+                                      <!-- Você pode adicionar mais botões aqui -->
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
                 </div>
             </div>
             
