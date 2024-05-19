@@ -10,8 +10,9 @@
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 
+    <script src="premium_script.js"></script>
 
-
+    
     <link rel="stylesheet" href="stylesIndex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -35,7 +36,7 @@
               <a class="nav-link text-white" href="dashBoard.html">DashBoard</a>
             </li>
             <li class="nav-item active">
-              <a class="nav-link " style="color: #5A6ACF;" href="premium.html">Premium</a>
+              <a class="nav-link " style="color: black;" href="premium.html">Premium</a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white"  href="profile.html">Profile</a>
@@ -57,6 +58,64 @@
 
       
 
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="row rounded text-white" style="margin-top: 2%; background-color: lightgray; ">
+        <button type="button" id="Area1btn" style="margin: 3px; background-color: white; color: black;" class="btn rounded" onclick="toggleAreas('Area1btn', 'Area2btn')">
+          Company
+        </button>
+        <button type="button" id="Area2btn" style="margin: 3px; color: black;" class="btn rounded" onclick="toggleAreas('Area2btn', 'Area1btn')">
+          Home
+        </button>
+
+      </div>
+
+      <div style="margin-top: 2%;">
+        <button type="button" id="Area2btn" style="margin: 3px; color: black;" class="btn rounded" data-toggle="modal" data-target="#area_pop-up">
+          <img src="images/more.png" width="30px; height: 30px">
+        </button>
+      </div>
+    </div>
+    
+    <div class="modal fade" id="area_pop-up" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="addArea">Add Area</h5>
+            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            <!-- Name input -->
+            <div class="form-group">
+              <label for="areaName">Area Name:</label>
+              <input type="text" class="form-control" id="areaName">
+            </div>
+            
+            <!-- Google Maps container -->
+            <div id="map-container" style="height: 300px;"></div>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Add Area</button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+
+
+
+
+    
+    <div class="container d-flex justify-content-center align-items-center">
+      <div class="row rounded" style="margin-top: 2%; ">
+        <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+          <img src="images/Screenshot 2024-05-19 at 17.30.25.png"> 
+          
+        </div>
+      </div>
+    </div>
+    
 
 
 
