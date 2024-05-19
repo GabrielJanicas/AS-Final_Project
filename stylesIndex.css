@@ -1,0 +1,109 @@
+.dashboard {
+    margin: 20px;
+    display: block;
+}
+
+#escolha {
+    width: 200px;
+    background-color: white;
+    border-radius: 5px;
+}
+
+.top {
+    width: 100%;
+    display: inline-block;
+    margin: 20px
+}
+
+.top h1 {
+    display: inline-block;
+    margin-right: 20px;
+    color: rgb(106, 90, 205)
+}
+
+.top form {
+    display: inline-block;
+}
+
+.top form select {
+    height: 30px;
+    border-radius: 5px;
+    border: 1px solid black;
+    width: 200px;
+}
+
+#content-dash {
+    display: flex;
+    margin:  0 100px;
+    justify-content: space-between;
+}
+
+
+.conta {
+    width: 700px;
+    height: 400px;
+    padding: 20px;
+    background-color: #f9f9f9; /* Fundo da div */
+    border-radius: 8px; /* Borda arredondada */
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Sombra */
+}
+
+table {
+    width: 50%;
+    margin: 20px auto;
+    border-collapse: collapse;
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+tr:hover {
+    background-color: #f1f1f1;
+}
+
+.change-positive {
+    color: green;
+}
+
+.change-negative {
+    color: red;
+}
+
+.title {
+    font-weight: bold;
+    margin-bottom: 10px;
+}
+
+.contact {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
+}
+
+.contact img {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    margin-right: 10px;
+}
+
+.contact .details {
+    display: flex;
+    flex-direction: column;
+}
+
+.contact .details .name {
+    font-weight: bold;
+}
+
+.contact .details .email {
+    color: #555;
+}
