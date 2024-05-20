@@ -7,8 +7,18 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
     <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+    <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.5.1/Control.FullScreen.min.js"></script>
+
+    <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.css" />
+    <link rel="stylesheet" href="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.5.1/Control.FullScreen.min.css" />
 
     <script src="premium_script.js"></script>
 
@@ -70,7 +80,7 @@
       </div>
 
       <div style="margin-top: 2%;">
-        <button type="button" id="Area2btn" style="margin: 3px; color: black;" class="btn rounded" data-toggle="modal" data-target="#area_pop-up">
+        <button type="button" id="createAreabtn" style="margin: 3px; color: black;" class="btn rounded" data-toggle="modal" data-target="#area_pop-up">
           <img src="images/more.png" width="30px; height: 30px">
         </button>
       </div>
@@ -78,29 +88,114 @@
     
     <div class="modal fade" id="area_pop-up" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
       <div class="modal-dialog" role="document">
-        <div class="modal-content">
-          <div class="modal-header">
-            <h5 class="modal-title" id="addArea">Add Area</h5>
-            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-              <span aria-hidden="true">&times;</span>
-            </button>
+          <div class="modal-content">
+              <div class="modal-header">
+                  <h5 class="modal-title" id="addArea">Add Area</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                      <span aria-hidden="true">&times;</span>
+                  </button>
+              </div>
+              <div class="modal-body">
+                  <!-- Name input -->
+                  <div class="form-group">
+                      <label for="areaName">Area Name:</label>
+                      <input type="text" class="form-control" id="areaName">
+                  </div>
+                  
+                  <!-- Google Maps container -->
+                  <div id="map-container" style="height: 300px;"></div>
+              </div>
+              <div class="modal-footer">
+                  <button type="button" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Add Area</button>
+              </div>
           </div>
-          <div class="modal-body">
-            <!-- Name input -->
-            <div class="form-group">
-              <label for="areaName">Area Name:</label>
-              <input type="text" class="form-control" id="areaName">
-            </div>
-            
-            <!-- Google Maps container -->
-            <div id="map-container" style="height: 300px;"></div>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Add Area</button>
-          </div>
-        </div>
       </div>
-    </div>
+  </div>
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.draw/1.0.4/leaflet.draw.js"></script>
+  <script src="https://unpkg.com/leaflet-control-geocoder/dist/Control.Geocoder.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/leaflet.fullscreen/1.5.1/Control.FullScreen.min.js"></script>
+  <script>
+      $('#area_pop-up').on('shown.bs.modal', function () {
+          const map = L.map('map-container', {maxBoundsViscosity: 1.0}).setView([51.505, -0.09], 13);
+
+          // Adiciona uma camada de mapa de tiles
+          L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+              attribution: '© OpenStreetMap contributors'
+          }).addTo(map);
+
+          // Adiciona o geocoder ao mapa
+          const geocoder = L.Control.geocoder({
+              defaultMarkGeocode: false
+          })
+          .on('markgeocode', function(e) {
+              const center = e.geocode.center;
+              map.setView(center, 13);  // Move o mapa para a localização encontrada
+          })
+          .addTo(map);
+
+          // Inicializa o FeatureGroup para armazenar os objetos desenhados
+          const drawnItems = new L.FeatureGroup();
+          map.addLayer(drawnItems);
+
+          // Inicializa o Leaflet.draw control
+          const drawControl = new L.Control.Draw({
+              edit: {
+                  featureGroup: drawnItems
+              },
+              draw: {
+                  polygon: false, // Desativa a ferramenta de polígono
+                  marker: false,
+                  polyline: false,
+                  circle: false,
+                  rectangle: true, // Mantém a ferramenta de retângulo
+                  circlemarker: false
+              }
+          });
+          map.addControl(drawControl);
+
+          // Adiciona eventos para capturar a finalização do desenho
+          map.on(L.Draw.Event.CREATED, function (event) {
+              const layer = event.layer;
+              drawnItems.addLayer(layer);
+              updateCoordinates(layer);
+          });
+
+          map.on(L.Draw.Event.EDITED, function (event) {
+              const layers = event.layers;
+              layers.eachLayer(function (layer) {
+                  updateCoordinates(layer);
+              });
+          });
+
+          // Função para atualizar e exibir as coordenadas
+          function updateCoordinates(layer) {
+              let coordinates = [];
+              if (layer instanceof L.Rectangle) {
+                  coordinates = layer.getLatLngs()[0].map(latlng => {
+                      return {lat: latlng.lat, lng: latlng.lng};
+                  });
+              }
+              console.log(JSON.stringify(coordinates));
+              // Aqui você pode salvar as coordenadas no seu banco de dados ou utilizá-las como preferir
+          }
+
+          // Adiciona o botão de fullscreen ao mapa com ícone personalizado
+          const fullscreenControl = L.control.fullscreen({
+              position: 'topleft', // Define a posição do botão
+              title: {
+                  'false': 'Expandir mapa para tela cheia', // Título do botão quando não estiver em fullscreen
+                  'true': 'Sair da tela cheia' // Título do botão quando estiver em fullscreen
+              },
+              content: '<i class="fas fa-expand"></i>' // Ícone personalizado para o botão de fullscreen
+          });
+          map.addControl(fullscreenControl);
+      });
+  </script>
 
 
 
