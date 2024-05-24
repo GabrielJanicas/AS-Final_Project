@@ -11,6 +11,8 @@
 
     <script src="index_script.js"></script>
 
+    
+
     <link rel="stylesheet" href="stylesIndex.css">
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
@@ -18,7 +20,7 @@
     
   </head>
   
-  <body>
+  <body onload="userPage()">
     
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
@@ -26,7 +28,7 @@
           
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white" href="login.html"><h4 class="text-white"><u>Log In</u></h4></a>
+              <a class="nav-link text-white" id="account" href="login.html"><h4 class="text-white"><u id="name_navbar">Log In</u></h4></a>
             </li>
             <li class="nav-item active">
               <a class="nav-link" style="color: black;" href="index.html">Map <span class="sr-only">(current)</span></a>
@@ -64,7 +66,7 @@
       <div class="col-md-3">
         
 
-        <button type="button" style="margin: 3px; margin-top: 20%; width: 65%; background-color: #5A6ACF; color: white;"; class="btn rounded-pill" data-toggle="modal" data-target="#data_pop-up" >
+        <button type="button" id="addData" style="margin: 3px; margin-top: 20%; width: 65%; background-color: #5A6ACF; color: white;"; class="btn rounded-pill" data-toggle="modal" data-target="#data_pop-up" >
             Add Data
         </button> <br>
       
