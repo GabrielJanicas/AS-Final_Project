@@ -107,3 +107,9 @@ tr:hover {
 .contact .details .email {
     color: #555;
 }
+
+
+.Hover:hover {
+    opacity: 0.5;
+}
+
