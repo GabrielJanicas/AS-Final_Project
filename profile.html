@@ -19,17 +19,17 @@
     
   </head>
   
-  <body>
+  <body onload="userPage()">
     <div class="pos-f-t">
       <div class="collapse" id="navbarToggleExternalContent">
         <div class="p-4" style="background-color: #5A6ACF;">
           
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white" href="login.html"><h4 class="text-white"><u>Carlos Inácio</u></h4></a>
+              <a class="nav-link text-white" id="account" href="login.html"><h4 class="text-white"><u id="name_navbar">Log In</u></h4></a>
             </li>
             <li class="nav-item">
-              <a class="nav-link text-white" href="index.html">Map <span class="sr-only">(current)</span></a>
+              <a class="nav-link text-white"  href="index.html">Map <span class="sr-only">(current)</span></a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" href="dashBoard.html">DashBoard</a>
@@ -56,15 +56,21 @@
     </div>
 
 
-    <div class="container">
+    <div class="container" id="login">
         <div class="row rounded" style="height: 250px; margin-top: 2%; background-color: #5A6ACF; ">
-            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-                <img src="images/homem_perfil.jpeg" class="rounded-circle" alt="profile" style="height: 180px;"> 
-                <h6>Carlos Inácio</h6>
+          <div class="col-12 d-flex flex-column align-items-center justify-content-center">
 
-                <button type="button" id="logOut_button" style="background-color: #FF0000; color: white;"; class="btn rounded-pill" onclick="logOut()">
-                  Log Out
+            <div class="rounded-circle" style="background-color: aquamarine; width: 3cm; height: 3cm; display: flex; align-items: center; justify-content: center; border-radius: 50%;">
+              <h1 alt="profile" style="margin: 0;" id="firstletter"></h1>
             </div>
+            
+            <h6 style="margin: 2%;" id="user_name"></h6>
+        
+            <button type="button" id="logOut_button" class="btn rounded-pill" style="background-color: #FF0000; color: white;" onclick="logOut()">
+                Log Out
+            </button>
+        </div>
+        
         </div>
         <div class="row">
             <div class="col-4">
@@ -76,27 +82,27 @@
                 </div>
                 <div class="row">
                     <div class="col-9">
-                        <p><b>Name:</b> Carlos Inácio</p>
+                        <p><b>Name: </b><a id="name"></a></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-9">
-                        <p><b>Address:</b> inaciocarlos@gmail.com</p>
+                        <p><b>Address: </b><a id="email"></a></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-9">
-                        <p><b>Password:</b> ***********</p>
+                        <p><b>Password: </b><a id="password"></a></p>
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-6">
-                        <p><b>Account:</b> free user</p>
+                        <p><b>Account: </b><a id="type"></a> user</p>
                     </div>
                     <div class="col-5">
 
-                        <button type="button" style="background-color: #5A6ACF; color: white;"; class="btn rounded-pill" data-toggle="modal" data-target="#premium_pop-up" >
-                          Buy premium
+                        <button type="button" id="premium" style="background-color: #5A6ACF; color: white;"; class="btn rounded-pill" data-toggle="modal" data-target="#premium_pop-up" >
+                         
                         </button> 
                         
 
@@ -111,11 +117,11 @@
                                   </div>
                                   <div class="modal-body">
                     
-                                    <a>Premium grants access to  all the data collected, so the analysis is more precise.</a>
+                                    <a id="premium_text">Premium grants access to  all the data collected, so the analysis is more precise.</a>
                                       
                                   </div>
                                   <div class="modal-footer">
-                                      <button type="button" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Make Payment</button>
+                                      <button type="button" id="premium_confirm" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal" onclick="premium()">Make Payment</button>
                                       <!-- Você pode adicionar mais botões aqui -->
                                   </div>
                               </div>

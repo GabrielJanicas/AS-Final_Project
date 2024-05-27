@@ -33,6 +33,9 @@ function login() {
     if (user) {
         localStorage.setItem('userType', user.type);
         localStorage.setItem('userName', user.name);
+        localStorage.setItem('userPassword', user.password);
+        localStorage.setItem('userEmail', user.email);
+
         window.location.href = 'index.html';
     } else {
         alert('Invalid name or password.');
