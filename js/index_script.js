@@ -2,6 +2,7 @@ function toggleButtons(activeBtnId, inactiveBtnId) {
     var activeBtn = document.getElementById(activeBtnId);
     var inactiveBtn = document.getElementById(inactiveBtnId);
 
+
     // Ativa o botão ativo
     
     activeBtn.classList.add('btn-success'); // Cor "ativada"
@@ -29,6 +30,8 @@ function sendData(val1) {
 
 
 document.addEventListener('DOMContentLoaded', function() {
+
+    document.getElementById('sound_pollution').style.display = 'none';
 
     const userType = localStorage.getItem('userType');
     const userName = localStorage.getItem('userName');
