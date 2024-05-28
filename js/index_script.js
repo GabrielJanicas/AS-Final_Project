@@ -21,6 +21,10 @@ function toggleButtons(activeBtnId, inactiveBtnId) {
 
 }
 
+function sendData(val1) {
+    document.getElementById('distrito').innerHTML = val1;
+}
+
 
 
 
