@@ -6,6 +6,15 @@ function toggleButtons(activeBtnId, inactiveBtnId) {
     
     activeBtn.classList.add('btn-success'); // Cor "ativada"
 
+    if(document.getElementById('air_pollution').style.display == 'none'){
+        
+        document.getElementById('air_pollution').style.display = 'block';
+        document.getElementById('sound_pollution').style.display = 'none';
+    }else {
+
+        document.getElementById('air_pollution').style.display = 'none';
+        document.getElementById('sound_pollution').style.display = 'block';
+    }
     // Desativa o botão inativo
     inactiveBtn.classList.remove('btn-success'); // Cor "ativada"
     inactiveBtn.classList.add('btn-secondary');
@@ -13,7 +22,10 @@ function toggleButtons(activeBtnId, inactiveBtnId) {
 }
 
 
-function userPage() {
+
+
+document.addEventListener('DOMContentLoaded', function() {
+
     const userType = localStorage.getItem('userType');
     const userName = localStorage.getItem('userName');
     
@@ -39,4 +51,11 @@ function userPage() {
         name_navbar.textContent = userName;
         //document.getElementById('account').setAttribute('href', 'profile.html');
     }
-}
+
+    tippy('.svg-tooltip', {
+        allowHTML: true,
+        placement: 'top', 
+        theme: 'light',
+        
+    });
+});

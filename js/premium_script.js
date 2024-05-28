@@ -13,3 +13,13 @@ function toggleAreas(activeBtnId, inactiveBtnId) {
 }
 
 
+document.addEventListener('DOMContentLoaded', function() {
+    const userType = localStorage.getItem('userType');
+
+    console.log("type: " + userType);
+
+    if(userType === null){
+        window.location.href = 'login.html';
+    }
+});
+

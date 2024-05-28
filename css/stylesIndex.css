@@ -109,7 +109,7 @@ tr:hover {
 }
 
 
-.Hover:hover {
+.svg-tooltip:hover {
     opacity: 0.5;
 }
 

@@ -4,7 +4,7 @@ function logOut() {
     localStorage.removeItem('userPassword');
     localStorage.removeItem('userEmail');
     
-    location.reload();
+    window.location.href = 'index.html';
 }
 
 
@@ -42,9 +42,13 @@ function premium() {
     location.reload();
 }
 
-
-function userPage() {
+document.addEventListener('DOMContentLoaded', function() {
     const userType = localStorage.getItem('userType');
+
+    if(userType === null){
+        window.location.href = 'login.html';
+    }
+
     const userName = localStorage.getItem('userName');
     const userPassword = localStorage.getItem('userPassword');
     const userEmail = localStorage.getItem('userEmail');
@@ -91,5 +95,5 @@ function userPage() {
         
         document.getElementById('account').setAttribute('href', 'profile.html');
     }
-     
-}
+});
+
