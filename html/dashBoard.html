@@ -27,7 +27,7 @@
           
           <ul class="navbar-nav">
             <li class="nav-item">
-              <a class="nav-link text-white" href="login.html"><h4 class="text-white"><u>Log In</u></h4></a>
+              <a class="nav-link text-white" id="account" href="login.html"><h4 class="text-white"><u id="name_navbar">Log In</u></h4></a>
             </li>
             <li class="nav-item">
               <a class="nav-link text-white" href="index.html">Map <span class="sr-only">(current)</span></a>
@@ -56,115 +56,134 @@
       </nav>
     </div>
 
-    <div class=dashboard>
-        <div class="top">
-            <h1>Dashboard</h1>
-            <form action="#" method="post">
-            <select id="escolha" name="escolha">
-                <option value="Aveiro">Aveiro</option>
-                <option value="Beja">Beja</option>
-                <option value="Bragança">Bragança</option>
-                <option value="Castelo Branco">Castelo Branco</option>
-                <option value="Coimbra">Coimbra</option>
-                <option value="Faro">Faro</option>
-                <option value="Guarda">Guarda</option>
-                <option value="Leiria">Leiria</option>
-                <option value="Lisboa">Lisboa</option>
-                <option value="Portalegre">Portalegre</option>
-                <option value="Porto">Porto</option>
-                <option value="Santarém">Santarém</option>
-                <option value="Setúbal">Setúbal</option>
-                <option value="Viana do Castelo">Viana do Castelo</option>
-                <option value="Vila Real">Vila Real</option>
-                <option value="Viseu">Viseu</option>
-            </select> 
-            </form>
-        </div>
-        <br><br><br>
 
-        <div id="content-dash">
-            <div class="conta">
-                <h4>Pollution Levels</h4>
-                <canvas id="meuGrafico"></canvas>
-            </div>
-            <div class="conta">
-                <table>
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th>Sessions</th>
-                            <th>Change</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                         <tr>
-                            <td>website.net</td>
-                            <td>4321</td>
-                            <td class="change-positive">+84%</td>
-                        </tr>
-                        <tr>
-                            <td>website.net</td>
-                            <td>4033</td>
-                            <td class="change-negative">-8%</td>
-                        </tr>
-                        <tr>
-                            <td>website.net</td>
-                            <td>3128</td>
-                            <td class="change-positive">+2%</td>
-                        </tr>
-                        <tr>
-                            <td>website.net</td>
-                            <td>2104</td>
-                            <td class="change-positive">+33%</td>
-                        </tr>
-                        <tr>
-                            <td>website.net</td>
-                            <td>2003</td>
-                            <td class="change-positive">+30%</td>
-                        </tr>
-                        <tr>
-                            <td>website.net</td>
-                            <td>1894</td>
-                            <td class="change-positive">+15%</td>
-                        </tr>
-                    </tbody>
-                </table>
-            </div>
-        </div>
-        <br><br><br>
-        <div id="content-dash">
-            <div class="conta">
-                <div class="title">Title</div>
-                <div class="contact">
-                    <img src="https://via.placeholder.com/40" alt="Helena">
-                    <div class="details">
-                        <div class="name">Helena</div>
-                        <div class="email">email@figmasfakedomain.net</div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <img src="https://via.placeholder.com/40" alt="Oscar">
-                    <div class="details">
-                        <div class="name">Oscar</div>
-                        <div class="email">email@figmasfakedomain.net</div>
-                    </div>
-                </div>
-                <div class="contact">
-                    <img src="https://via.placeholder.com/40" alt="Daniel">
-                    <div class="details">
-                        <div class="name">Daniel</div>
-                        <div class="email">email@figmasfakedomain.net</div>
-                    </div>
-                </div>
-            </div>
-            <div class="conta">
-                <h4>Last Six days</h4>
-                <canvas id="meuGrafico2"></canvas>
-            </div>
-        </div>
+    <div id="premium">
+
+    
+
+      <div class=dashboard>
+          <div class="top">
+              <h1>Dashboard</h1>
+              <form action="#" method="post">
+              <select id="escolha" name="escolha">
+                  <option value="Aveiro">Aveiro</option>
+                  <option value="Beja">Beja</option>
+                  <option value="Bragança">Bragança</option>
+                  <option value="Castelo Branco">Castelo Branco</option>
+                  <option value="Coimbra">Coimbra</option>
+                  <option value="Faro">Faro</option>
+                  <option value="Guarda">Guarda</option>
+                  <option value="Leiria">Leiria</option>
+                  <option value="Lisboa">Lisboa</option>
+                  <option value="Portalegre">Portalegre</option>
+                  <option value="Porto">Porto</option>
+                  <option value="Santarém">Santarém</option>
+                  <option value="Setúbal">Setúbal</option>
+                  <option value="Viana do Castelo">Viana do Castelo</option>
+                  <option value="Vila Real">Vila Real</option>
+                  <option value="Viseu">Viseu</option>
+              </select> 
+              </form>
+          </div>
+          <br><br><br>
+
+          <div id="content-dash">
+              <div class="conta">
+                  <h4>Pollution Levels</h4>
+                  <canvas id="meuGrafico"></canvas>
+              </div>
+              <div class="conta">
+                  <table>
+                      <thead>
+                          <tr>
+                              <th>Source</th>
+                              <th>Sessions</th>
+                              <th>Change</th>
+                          </tr>
+                      </thead>
+                      <tbody>
+                          <tr>
+                              <td>website.net</td>
+                              <td>4321</td>
+                              <td class="change-positive">+84%</td>
+                          </tr>
+                          <tr>
+                              <td>website.net</td>
+                              <td>4033</td>
+                              <td class="change-negative">-8%</td>
+                          </tr>
+                          <tr>
+                              <td>website.net</td>
+                              <td>3128</td>
+                              <td class="change-positive">+2%</td>
+                          </tr>
+                          <tr>
+                              <td>website.net</td>
+                              <td>2104</td>
+                              <td class="change-positive">+33%</td>
+                          </tr>
+                          <tr>
+                              <td>website.net</td>
+                              <td>2003</td>
+                              <td class="change-positive">+30%</td>
+                          </tr>
+                          <tr>
+                              <td>website.net</td>
+                              <td>1894</td>
+                              <td class="change-positive">+15%</td>
+                          </tr>
+                      </tbody>
+                  </table>
+              </div>
+          </div>
+          <br><br><br>
+          <div id="content-dash">
+              <div class="conta">
+                  <div class="title">Title</div>
+                  <div class="contact">
+                      <img src="https://via.placeholder.com/40" alt="Helena">
+                      <div class="details">
+                          <div class="name">Helena</div>
+                          <div class="email">email@figmasfakedomain.net</div>
+                      </div>
+                  </div>
+                  <div class="contact">
+                      <img src="https://via.placeholder.com/40" alt="Oscar">
+                      <div class="details">
+                          <div class="name">Oscar</div>
+                          <div class="email">email@figmasfakedomain.net</div>
+                      </div>
+                  </div>
+                  <div class="contact">
+                      <img src="https://via.placeholder.com/40" alt="Daniel">
+                      <div class="details">
+                          <div class="name">Daniel</div>
+                          <div class="email">email@figmasfakedomain.net</div>
+                      </div>
+                  </div>
+              </div>
+              <div class="conta">
+                  <h4>Last Six days</h4>
+                  <canvas id="meuGrafico2"></canvas>
+              </div>
+          </div>
+      </div>
     </div>
-    <script src="./grafico1.js"></script>
-    <script src="./grafico2.js"></script>
+
+
+    <div id="free">
+      <div class="d-flex vh-100">
+        <div class="container align-self-center">
+            <div class="text-center">
+                Get premium to access this feature!
+                <br>
+                <a href="../html/profile.html" class="btn btn-primary mt-3 rounded-pill" style="background-color: #5A6ACF; color: white;">Get premium</a>
+            </div>
+        </div>
+      </div>
+    </div>
+    
+    
   </body>
   
 

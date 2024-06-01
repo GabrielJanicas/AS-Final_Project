@@ -154,3 +154,36 @@ document.addEventListener('DOMContentLoaded', function() {
         
     });
 });
+
+
+
+function publishData() {
+
+    const number = document.getElementById('number-data').value;
+    const number_error = document.getElementById('number-error');
+
+    number_error.textContent = '';
+
+    let hasError = false;
+
+    if (!number) {
+        number_error.textContent = 'Please enter a number.';
+        hasError = true;
+
+    }else if (number < 0 || number > 500) {
+        number_error.textContent = 'Please enter a number between 0 and 500.';
+        hasError = true;
+    }
+
+    if (hasError) {
+        return;
+    }
+
+
+    alert('Data published successfully.');
+
+    location.reload();
+
+
+
+}

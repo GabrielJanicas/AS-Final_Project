@@ -30,7 +30,7 @@
         <div class="collapse" id="navbarToggleExternalContent">
             <div class="p-4" style="background-color: #5A6ACF;">
                 <ul class="navbar-nav">
-                    <li class="nav-item"><a class="nav-link text-white" href="login.html"><h4 class="text-white"><u>Log In</u></h4></a></li>
+                    <li class="nav-item"><a class="nav-link text-white" id="account" href="login.html"><h4 class="text-white"><u id="name_navbar">Log In</u></h4></a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="index.html">Map</a></li>
                     <li class="nav-item"><a class="nav-link text-white" href="dashBoard.html">DashBoard</a></li>
                     <li class="nav-item active"><a class="nav-link" style="color: black;" href="premium.html">Premium</a></li>
@@ -49,56 +49,72 @@
         </nav>
     </div>
 
-    <div class="container d-flex justify-content-center align-items-center">
-        <div class="row rounded text-white" style="margin-top: 2%; background-color: lightgray;">
-            <div id="tab-container" class="btn-group">
-                <button type="button" id="defaultTab" class="btn btn-secondary" onclick="showTable('table-0')">Company</button>
-                <button type="button" id="createAreabtn" class="btn btn-secondary" data-toggle="modal" data-target="#area_pop-up">
-                    <img src="../images/more.png" width="20" height="20">
-                </button>
-            </div>
-        </div>
-    </div>
 
-    <div class="modal fade" id="area_pop-up" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
-        <div class="modal-dialog" role="document">
-            <div class="modal-content">
-                <div class="modal-header">
-                    <h5 class="modal-title" id="addArea">Add Area</h5>
-                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span aria-hidden="true">&times;</span>
+
+    <div id="premium">
+        <div class="container d-flex justify-content-center align-items-center">
+            <div class="row rounded text-white" style="margin-top: 2%; background-color: lightgray;">
+                <div id="tab-container" class="btn-group">
+                    <button type="button" id="defaultTab" class="btn btn-secondary" onclick="showTable('table-0')">Company</button>
+                    <button type="button" id="createAreabtn" class="btn btn-secondary" data-toggle="modal" data-target="#area_pop-up">
+                        <img src="../images/more.png" width="20" height="20">
                     </button>
                 </div>
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="areaName">Area Name:</label>
-                        <input type="text" class="form-control" id="areaName">
+            </div>
+        </div>
+
+        <div class="modal fade" id="area_pop-up" tabindex="-1" role="dialog" aria-labelledby="addArea" aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="addArea">Add Area</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
                     </div>
-                    <div id="map-container" style="height: 300px;"></div>
+                    <div class="modal-body">
+                        <div class="form-group">
+                            <label for="areaName">Area Name:</label>
+                            <input type="text" class="form-control" id="areaName">
+                        </div>
+                        <div id="map-container" style="height: 300px;"></div>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" id="addAreaBtn" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Add Area</button>
+                    </div>
                 </div>
-                <div class="modal-footer">
-                    <button type="button" id="addAreaBtn" class="btn" style="background-color: #5A6ACF; color: white;" data-dismiss="modal">Add Area</button>
+            </div>
+        </div>
+
+        <div class="container d-flex justify-content-center align-items-center" id="tables-container">
+            <div class="row rounded" style="margin-top: 2%;">
+                <div class="col-12 d-flex flex-column align-items-center justify-content-center">
+                    <table id="table-0" class="table table-bordered table-striped">
+                        <thead>
+                            <tr>
+                                <th>Source</th>
+                                <th>Sessions</th>
+                                <th>Change</th>
+                            </tr>
+                        </thead>
+                        <tbody id="table-body-0">
+                            <!-- Data will be inserted here by JavaScript -->
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
     </div>
 
-    <div class="container d-flex justify-content-center align-items-center" id="tables-container">
-        <div class="row rounded" style="margin-top: 2%;">
-            <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-                <table id="table-0" class="table table-bordered table-striped">
-                    <thead>
-                        <tr>
-                            <th>Source</th>
-                            <th>Sessions</th>
-                            <th>Change</th>
-                        </tr>
-                    </thead>
-                    <tbody id="table-body-0">
-                        <!-- Data will be inserted here by JavaScript -->
-                    </tbody>
-                </table>
-            </div>
+    <div id="free">
+        <div class="d-flex vh-100">
+          <div class="container align-self-center">
+              <div class="text-center">
+                  Get premium to access this feature!
+                  <br>
+                  <a href="../html/profile.html" class="btn btn-primary mt-3 rounded-pill" style="background-color: #5A6ACF; color: white;">Get premium</a>
+              </div>
+          </div>
         </div>
     </div>
 
