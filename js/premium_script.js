@@ -240,22 +240,20 @@ function getRandomInt(min, max) {
 }
 
 function removeTable(tabId) {
-    // Remove table data from local storage
-    let savedTables = JSON.parse(localStorage.getItem('tables')) || [];
-    savedTables = savedTables.filter((table, index) => index + 1 !== tabId);
-    localStorage.setItem('tables', JSON.stringify(savedTables));
+    // Remove table from local storage
+    const savedTables = JSON.parse(localStorage.getItem('tables')) || [];
+    const updatedTables = savedTables.filter((table, index) => index !== tabId - 1);
+    localStorage.setItem('tables', JSON.stringify(updatedTables));
 
-    // Remove the tab and table container from the DOM
-    const tabContainer = document.getElementById('tab-container');
-    const tableContainer = document.getElementById(`tables-container-${tabId}`);
-    tabContainer.childNodes.forEach(tab => {
-        if (tab.querySelector(`button[onclick="showTablesForArea(${tabId})"]`)) {
-            tab.remove();
-        }
+    // Remove table from DOM
+    document.getElementById(`tables-container-${tabId}`).remove();
+    document.querySelectorAll('.tab-item').forEach(tab => {
+        tab.remove();
     });
-    if (tableContainer) {
-        tableContainer.remove();
-    }
+
+    tableCount -= 1;
+    loadTables();
 }
+
 
 let tableCount = 1;
