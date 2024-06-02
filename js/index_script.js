@@ -269,7 +269,7 @@ document.addEventListener('DOMContentLoaded', function() {
     } else if (userType === 'premium') {
         // Show all content for premium users
         name_navbar.textContent = userName;
-        //document.getElementById('account').setAttribute('href', 'profile.html');
+        document.getElementById('account').setAttribute('href', 'profile.html');
     }
 
     tippy('.svg-tooltip', {
