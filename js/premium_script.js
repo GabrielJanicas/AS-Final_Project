@@ -60,11 +60,11 @@ function saveTable(name, coordinates, data) {
 
 function addTabToDOM(name, coordinates, data, tabId) {
     const tabContainer = document.getElementById('tab-container');
-    const newTab = document.createElement('button');
-    newTab.type = 'button';
-    newTab.className = 'btn btn-secondary';
-    newTab.innerText = name;
-    newTab.onclick = () => showTablesForArea(tabId);
+    const newTab = document.createElement('div');
+    newTab.className = 'tab-item';
+    newTab.innerHTML = `
+        <button type="button" class="btn btn-secondary" onclick="showTablesForArea(${tabId})">${name}</button>
+    `;
     tabContainer.insertBefore(newTab, document.getElementById('createAreabtn'));
 
     // Create container for tables
@@ -87,6 +87,17 @@ function addTabToDOM(name, coordinates, data, tabId) {
     // Add Decibels Table
     const decibelsTable = createTable(`Decibels Data for ${name}`, data.filter(item => item.decibels !== undefined), 'decibels');
     tablesContainer.appendChild(decibelsTable);
+
+    // Add Remove Button at the end
+    const removeButton = document.createElement('button');
+    removeButton.type = 'button';
+    removeButton.className = 'btn btn-danger';
+    removeButton.innerText = 'Remove area';
+    removeButton.style.display = 'block';
+    removeButton.style.margin = '0 auto';
+
+    removeButton.onclick = () => removeTable(tabId);
+    tablesContainer.appendChild(removeButton);
 
     document.getElementById('tables-container').appendChild(tablesContainer);
 
@@ -226,6 +237,25 @@ function showLocationOnMap(lat, lng) {
 
 function getRandomInt(min, max) {
     return Math.floor(Math.random() * (max - min + 1)) + min;
+}
+
+function removeTable(tabId) {
+    // Remove table data from local storage
+    let savedTables = JSON.parse(localStorage.getItem('tables')) || [];
+    savedTables = savedTables.filter((table, index) => index + 1 !== tabId);
+    localStorage.setItem('tables', JSON.stringify(savedTables));
+
+    // Remove the tab and table container from the DOM
+    const tabContainer = document.getElementById('tab-container');
+    const tableContainer = document.getElementById(`tables-container-${tabId}`);
+    tabContainer.childNodes.forEach(tab => {
+        if (tab.querySelector(`button[onclick="showTablesForArea(${tabId})"]`)) {
+            tab.remove();
+        }
+    });
+    if (tableContainer) {
+        tableContainer.remove();
+    }
 }
 
 let tableCount = 1;

@@ -38,6 +38,11 @@
     justify-content: space-between;
 }
 
+.tab-item {
+    display: flex;
+    align-items: center;
+    margin-right: 10px;
+}
 
 .conta {
     width: 700px;
