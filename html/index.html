@@ -99,11 +99,12 @@
                     <div class="modal-body">
       
                       <div class="form-group">
-                        <label for="districtInput">District:</label>
+                        <label for="districtInput">District or island:</label>
                         <select class="form-control" id="districtSelect">
                           
                           <option value="Aveiro">Aveiro</option>
                           <option value="Beja">Beja</option>
+                          <option value="Braga">Braga</option>
                           <option value="Bragança">Bragança</option>
                           <option value="Castelo Branco">Castelo Branco</option>
                           <option value="Coimbra">Coimbra</option>
@@ -118,6 +119,8 @@
                           <option value="Viana do Castelo">Viana do Castelo</option>
                           <option value="Vila Real">Vila Real</option>
                           <option value="Viseu">Viseu</option>
+                          <option value="Açores">Açores</option>
+                          <option value="Madeira">Madeira</option>
                           <!-- Adicione mais opções de distrito aqui -->
                         </select>
                         
@@ -126,10 +129,10 @@
       
                       <div class="form-group">
                         <label for="districtInput">Type og polution:</label>
-                        <select class="form-control" id="poluicaoSelect">
+                        <select class="form-control" id="pollutionType" onchange="updateRange()">
                           
-                          <option value="ar">Air polution</option>
-                          <option value="sonora">Sound polution</option>
+                          <option value="air">Air polution</option>
+                          <option value="noise">Noise polution</option>
                           
                         </select>
                         
@@ -138,8 +141,8 @@
                       <div class="d-flex flex-row align-items-center mb-4">
                         <i class="fas fa-lock fa-lg me-3 fa-fw"></i>
                         <div data-mdb-input-init class="form-outline flex-fill mb-0">
-                          <label class="form-label" for="form3Example4c">Level of polution (0 - 500):</label>
-                          <input type="number" id="number-data" class="form-control" min="0" max="500"/>
+                          <label class="form-label" for="form3Example4c" id="level_pollution">Level of polution (0 - 500):</label>
+                          <input type="number" id="number-data" class="form-control" id="pollutionLevel" min="0" max="500"/>
                           <div id="number-error" class="error"></div>
                           
                         </div>
@@ -154,8 +157,8 @@
             </div>
         </div>
           
-        <button type="button" id="airPollutionBtn" style="margin: 3px; margin-top: 200%; width: 65%;" class="btn btn-success rounded-pill" onclick="toggleButtons('airPollutionBtn', 'soundPollutionBtn')">Air Pollution</button><br>
-        <button type="button" id="soundPollutionBtn" style="margin: 3px; width: 65%;" class="btn btn-secondary rounded-pill" onclick="toggleButtons('soundPollutionBtn', 'airPollutionBtn')">Sound Pollution</button>
+        <button type="button" id="airPollutionBtn" style="margin: 3px; margin-top: 200%; width: 65%;" class="btn btn-success rounded-pill" onclick="toggleButtons('airPollutionBtn', 'noisePollutionBtn')" disabled>Air Pollution</button><br>
+        <button type="button" id="noisePollutionBtn" style="margin: 3px; width: 65%;" class="btn btn-secondary rounded-pill" onclick="toggleButtons('noisePollutionBtn', 'airPollutionBtn')" >Noise Pollution</button>
 
     
         
@@ -231,7 +234,7 @@
   
           </svg>
 
-          <svg _ngcontent-pmf-c31 viewBox="0 0 260 355" width="90%" style="min-height: 370px;" id="sound_pollution">
+          <svg _ngcontent-pmf-c31 viewBox="0 0 260 355" width="90%" style="min-height: 370px;" id="noise_pollution">
             <g _ngcontent-pmf-c31="" onclick="sendData('Aveiro')" class="svg-tooltip" data-tippy-content="Aveiro" id = "Aveiro"><polygon _ngcontent-pmf-c31="" points="122,70,122,69,121,70,120,71,119,70,119,70,118,70,117,70,117,69,116,69,116,69,116,68,116,68,116,67,116,67,115,66,114,66,113,67,112,67,112,68,111,67,111,67,110,67,110,68,110,68,111,69,110,70,109,69,109,68,108,67,108,67,106,67,107,68,107,68,107,68,106,68,106,69,106,69,105,68,105,68,105,68,104,68,104,68,104,69,102,69,102,69,102,69,102,68,101,69,100,69,100,69,100,69,100,69,100,69,100,69,100,69,100,70,100,70,100,70,100,70,100,70,100,70,100,70,100,70,100,70,100,70,100,71,100,71,100,71,100,71,100,71,100,71,100,71,100,71,100,71,100,71,100,72,100,72,100,73,100,73,99,76,98,80,96,87,96,88,96,88,96,88,96,88,96,89,95,92,95,93,96,95,97,97,99,98,101,99,101,98,101,96,102,96,103,97,103,99,104,100,106,99,106,99,106,100,107,101,106,102,106,102,106,104,105,105,105,104,105,106,106,106,106,106,107,106,107,106,108,105,109,104,110,103,110,103,112,102,112,101,112,101,112,100,112,99,113,98,113,97,112,96,112,96,113,95,114,95,115,95,116,94,115,93,114,93,114,92,113,90,114,90,113,90,114,90,115,90,115,89,115,89,114,88,114,87,114,85,113,85,113,84,113,83,114,82,115,82,115,82,115,81,115,80,115,80,116,79,116,77,117,77,118,77,119,77,120,77,121,77,121,76,121,74,120,73,120,73,121,72,122,71,122,70" class="map" style="fill: rgb(0, 102, 0); opacity: 1; stroke: rgb(245, 245, 245); stroke-width: 0.4;"></polygon><!----><!----><!----><!----><!----><!----><!---->
             </g>
           
@@ -297,37 +300,60 @@
         
       </div>
       <!-- Coluna da direita -->
-      <div class="col-md-3">
-        <div class="container-fluid  text-light rounded" style="margin-top: 20%; background-color: #5A6ACF; ">
+      <div class="col-md-3" id="dataContainer">
+        <div class="container-fluid  text-light rounded" style="margin-top: 40%; background-color: #5A6ACF; ">
           <br>
-          <h5 id="distrito" style="text-align: center;">District</h5>
-          <h5 id="o3" style="text-align: center;">O3: </h5>
-          <h5 id="no2" style="text-align: center;">NO2: </h5>
-          <h5 id="pm10" style="text-align: center;">PM10: </h5>
-          <h5 id="airQuality" style="text-align: center;">Air quality: </h5>
+          <h5 id="distrito" style="text-align: center;">District</h5><br>
+          <a id="data1" style="text-align: center;"></a><br>
+          <a id="data2" style="text-align: center;"></a><br>
+          <a id="data3" style="text-align: center;"></a><br>
+          <a id="data4" style="text-align: center;"></a><br>
           <br>
         </div>
 
 
         <div class="container-fluid rounded">
 
-          <div class="row" style="margin-top: 150%;">
+          <div id="air_quality">
+            <div class="row" style="margin-top: 140%;">
+
+                <div class="col">
+                    <div class="progress">
+                        <div class="progress-bar bg-success" style="width: 20%; background-color: #00e400;">0</div>
+                        <div class="progress-bar bg-warning" style="width: 20%; background-color: #ffff00;">50</div>
+                        <div class="progress-bar" style="width: 20%; background-color: #ff7e00;">100</div>
+                        <div class="progress-bar" style="width: 20%; background-color: #ff0000;">200</div>
+                        <div class="progress-bar" style="width: 20%; background-color: #99004c;">300</div>
+                        <div class="progress-bar" style="width: 20%; background-color: #7e0023;">400</div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col text-center">
+                    <p>AIR QUALITY INDEX</p>
+                </div>
+            </div>
+          </div>
+
+          <div id="noise_quality"  style="display: none;">
+            <div class="row" style="margin-top: 140%;">
 
               <div class="col">
                   <div class="progress">
                       <div class="progress-bar bg-success" style="width: 20%; background-color: #00e400;">0</div>
                       <div class="progress-bar bg-warning" style="width: 20%; background-color: #ffff00;">50</div>
-                      <div class="progress-bar" style="width: 20%; background-color: #ff7e00;">100</div>
-                      <div class="progress-bar" style="width: 20%; background-color: #ff0000;">200</div>
-                      <div class="progress-bar" style="width: 20%; background-color: #99004c;">300</div>
-                      <div class="progress-bar" style="width: 20%; background-color: #7e0023;">400</div>
+                      <div class="progress-bar" style="width: 20%; background-color: #ff7e00;">80</div>
+                      <div class="progress-bar" style="width: 20%; background-color: #ff0000;">110</div>
+                      <div class="progress-bar" style="width: 20%; background-color: #99004c;">150</div>
+                      
                   </div>
               </div>
           </div>
           <div class="row">
               <div class="col text-center">
-                  <p>AIR QUALITY INDEX</p>
+                  <p>NOISE QUALITY INDEX</p>
               </div>
+            </div>
           </div>
         </div>
 
