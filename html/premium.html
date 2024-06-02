@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Áreas Personalizadas</title>
+    <title>WeEco - Premium</title>
 
     <!-- CSS Links -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
@@ -49,14 +49,11 @@
         </nav>
     </div>
 
-
-
     <div id="premium">
         <div class="container d-flex justify-content-center align-items-center">
             <div class="row rounded text-white" style="margin-top: 2%; background-color: lightgray;">
                 <div id="tab-container" class="btn-group">
-                    <button type="button" id="defaultTab" class="btn btn-secondary" onclick="showTable('table-0')">Company</button>
-                    <button type="button" id="createAreabtn" class="btn btn-secondary" data-toggle="modal" data-target="#area_pop-up">
+                   <button type="button" id="createAreabtn" class="btn btn-secondary" data-toggle="modal" data-target="#area_pop-up">
                         <img src="../images/more.png" width="20" height="20">
                     </button>
                 </div>
@@ -89,18 +86,7 @@
         <div class="container d-flex justify-content-center align-items-center" id="tables-container">
             <div class="row rounded" style="margin-top: 2%;">
                 <div class="col-12 d-flex flex-column align-items-center justify-content-center">
-                    <table id="table-0" class="table table-bordered table-striped">
-                        <thead>
-                            <tr>
-                                <th>Source</th>
-                                <th>Sessions</th>
-                                <th>Change</th>
-                            </tr>
-                        </thead>
-                        <tbody id="table-body-0">
-                            <!-- Data will be inserted here by JavaScript -->
-                        </tbody>
-                    </table>
+                    <!-- Tables will be inserted here -->
                 </div>
             </div>
         </div>
@@ -117,152 +103,25 @@
           </div>
         </div>
     </div>
-
+    <div class="modal fade" id="mapModal" tabindex="-1" role="dialog" aria-labelledby="mapModalLabel" aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="mapModalLabel">Sensor Location</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    <div id="sensorMap" style="height: 300px;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+    
 </body>
 
 <script>
-    const districtDataTypes = {
-        "Aveiro": ["PPM CO2", "Decibels"],
-        // Add other districts and data types here
-    };
-
-    async function getDistrictName(lat, lng) { // Obtém o nome do distrito com base nas coordenadas
-        const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
-        try {
-            const response = await fetch(url);
-            const data = await response.json();
-            const address = data.address;
-            if (address && address.city) {
-                return address.city;
-            } else if (address && address.town) {
-                return address.town;
-            } else if (address && address.village) {
-                return address.village;
-            } else if (address && address.county) {
-                return address.county;
-            }
-            return "Unknown";
-        } catch (error) {
-            console.error('Error fetching district name:', error);
-            return "Unknown";
-        }
-    }
-
-    function getRandomDataType(district) { // Obtém um tipo de dado aleatório com base no distrito
-        const dataTypes = districtDataTypes[district] || ["Data Type"];
-        return dataTypes[getRandomInt(0, dataTypes.length - 1)];
-    }
-
-    let tableCount = 1;
-
-    function showTable(tableId) {  // Mostra a tabela selecionada e oculta as outras
-        document.querySelectorAll('#tables-container table').forEach(table => {
-            table.style.display = 'none';
-        });
-        document.getElementById(tableId).style.display = 'table';
-    }
-
-    document.addEventListener('DOMContentLoaded', function() { // Verifica se o usuário está logado
-        const userType = localStorage.getItem('userType');
-        console.log("type: " + userType);
-
-        if (userType === null) {
-            window.location.href = 'login.html';
-        }
-
-        // Generate default table data
-        generateTableData('table-body-0', [{lat: 40.63, lng: -8.66}]);
-
-        document.getElementById('addAreaBtn').addEventListener('click', function() {
-            addNewTable();
-        });
-
-        showTable('table-0');
-    });
-
-    async function generateTableData(tableBodyId, coordinates) { // Gera dados para a tabela
-        const tableBody = document.getElementById(tableBodyId);
-        const data = await generateCustomData(coordinates);
-
-        tableBody.innerHTML = data.map(item => `
-            <tr>
-                <td>${item.source}</td>
-                <td>${item.sessions}</td>
-                <td>${item.change}</td>
-            </tr>
-        `).join('');
-    }
-
-    async function generateCustomData(coordinates) { // Gera dados personalizados para a tabela
-        const numRows = getRandomInt(1, 10);  // Número de linhas na tabela
-        const data = [];
-
-        for (let i = 0; i < numRows; i++) {
-            const coord = coordinates[getRandomInt(0, coordinates.length - 1)];
-            const district = await getDistrictName(coord.lat, coord.lng);
-            const dataType = getRandomDataType(district);
-            const baseSessions = getRandomInt(100, 5000);
-            const factor = (coord.lat + coord.lng) * 100;
-            data.push({
-                source: `${dataType}, ${district}`,
-                sessions: Math.floor(baseSessions + factor),
-                change: getRandomChange()
-            });
-        }
-
-        return data;
-    }
-
-    async function addNewTable() { // Adiciona uma nova tabela
-        const areaName = document.getElementById('areaName').value || `Table ${tableCount}`;
-        const coordinates = JSON.parse(localStorage.getItem('coordinates'));
-        if (!coordinates) {
-            alert('Please select an area on the map first.');
-            return;
-        }
-
-        const tablesContainer = document.getElementById('tables-container');
-        const newTableId = `table-${tableCount}`;
-        const newTable = document.createElement('table');
-        newTable.id = newTableId;
-        newTable.className = 'table table-bordered table-striped';
-        newTable.innerHTML = `
-            <thead>
-                <tr>
-                    <th>Source</th>
-                    <th>Sessions</th>
-                    <th>Change</th>
-                </tr>
-            </thead>
-            <tbody id="table-body-${tableCount}">
-                <!-- Data will be inserted here by JavaScript -->
-            </tbody>
-        `;
-        newTable.style.display = 'none';
-        tablesContainer.appendChild(newTable);
-
-        const tabContainer = document.getElementById('tab-container');
-        const newTab = document.createElement('button');
-        newTab.type = 'button';
-        newTab.className = 'btn btn-secondary';
-        newTab.innerText = areaName;
-        newTab.onclick = () => showTable(newTableId);
-        tabContainer.insertBefore(newTab, document.getElementById('createAreabtn'));
-
-        tableCount++;
-
-        await generateTableData(`table-body-${tableCount - 1}`, coordinates);
-    }
-
-    function getRandomInt(min, max) {
-        return Math.floor(Math.random() * (max - min + 1)) + min;
-    }
-
-    function getRandomChange() {
-        const change = Math.floor(Math.random() * 201) - 100; // Random number between -100 and +100
-        return change >= 0 ? `+${change}%` : `${change}%`;
-    }
-
     $('#area_pop-up').on('shown.bs.modal', function () { // Inicializa o mapa ao abrir o "pop-up"
         const map = L.map('map-container', { maxBoundsViscosity: 1.0 }).setView([40.63, -8.66], 13);
 
