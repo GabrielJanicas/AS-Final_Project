@@ -25,6 +25,12 @@ document.addEventListener('DOMContentLoaded', function() {
 // Sensor density variable
 const sensorDensity = 5; // Adjust this value as needed
 
+// Sensor name arrays
+const o3Sensors = ['DGS2', 'O3ONE', 'O3 - Sesotec', '2B Tech - O3'];
+const no2Sensors = ['DGS2', 'NO2 - Sesotec', '2B Tech - NO2', 'NO2 - Aeroqual'];
+const pm10Sensors = ['DGS2', 'PM10 - Sesotec', 'DustTrak - PM10'];
+const decibelSensors = ['Decibel 1000', 'Toolsonic', 'RAE Systems - Decibel 1310'];
+
 function loadTables() {
     const savedTables = JSON.parse(localStorage.getItem('tables')) || [];
     savedTables.forEach((table, index) => {
@@ -94,19 +100,19 @@ function createTable(title, data, type) {
     table.innerHTML = `
         <thead>
             <tr>
-                <th>Source</th>
+                <th>Location</th>
                 <th>${type.toUpperCase()} (${unit})</th>
                 <th>Coordinates</th>
-                <th>Author</th>
+                <th>Sensor Name</th>
             </tr>
         </thead>
         <tbody>
             ${data.map(item => `
                 <tr>
-                    <td>${item.source}</td>
+                    <td>${item.location}</td>
                     <td>${item[type]}</td>
                     <td><a href="#" class="coordinate-link" data-lat="${item[`${type}Coordinates`].lat}" data-lng="${item[`${type}Coordinates`].lng}">(${item[`${type}Coordinates`].lat.toFixed(2)}, ${item[`${type}Coordinates`].lng.toFixed(2)})</a></td>
-                    <td>${item.author}</td>
+                    <td>${item[`${type}SensorName`]}</td>
                 </tr>`).join('')}
         </tbody>
     `;
@@ -136,29 +142,26 @@ async function generateTableData(coordinates, density) {
     for (let i = 0; i < numRows; i++) {
         const coord = coordinates[getRandomInt(0, coordinates.length - 1)];
         const district = await getDistrictName(coord.lat, coord.lng);
-        const author = getRandomAuthor();
 
         const sensors = generateSensorData(coordinates);
 
         data.push({
-            source: district,
+            location: district,
             o3: sensors.o3,
             o3Coordinates: sensors.o3Coordinates,
+            o3SensorName: sensors.o3SensorName,
             no2: sensors.no2,
             no2Coordinates: sensors.no2Coordinates,
+            no2SensorName: sensors.no2SensorName,
             pm10: sensors.pm10,
             pm10Coordinates: sensors.pm10Coordinates,
+            pm10SensorName: sensors.pm10SensorName,
             decibels: sensors.decibels,
             decibelsCoordinates: sensors.decibelsCoordinates,
-            author: author
+            decibelsSensorName: sensors.decibelsSensorName
         });
     }
     return data;
-}
-
-function getRandomAuthor() {
-    const authors = ['John Doe', 'Jane Doe', 'Matt Smith', 'Elon Musk', 'Samuel L. Jackson', 'Morgan Freeman', 'Tom Hanks', 'Will Smith', 'Keanu Reeves', 'Scarlett Johansson'];
-    return authors[getRandomInt(0, authors.length - 1)];
 }
 
 function generateSensorData(coordinates) {
@@ -166,18 +169,22 @@ function generateSensorData(coordinates) {
     if (Math.random() > 0.5) {
         sensors.o3 = getRandomInt(0, 100);
         sensors.o3Coordinates = coordinates[getRandomInt(0, coordinates.length - 1)];
+        sensors.o3SensorName = o3Sensors[getRandomInt(0, o3Sensors.length)];
     }
     if (Math.random() > 0.5) {
         sensors.no2 = getRandomInt(0, 200);
         sensors.no2Coordinates = coordinates[getRandomInt(0, coordinates.length - 1)];
+        sensors.no2SensorName = no2Sensors[getRandomInt(0, no2Sensors.length)];
     }
     if (Math.random() > 0.5) {
         sensors.pm10 = getRandomInt(0, 150);
         sensors.pm10Coordinates = coordinates[getRandomInt(0, coordinates.length - 1)];
+        sensors.pm10SensorName = pm10Sensors[getRandomInt(0, pm10Sensors.length)];
     }
     if (Math.random() > 0.5) {
         sensors.decibels = getRandomInt(30, 120); // Typical range for decibels
         sensors.decibelsCoordinates = coordinates[getRandomInt(0, coordinates.length - 1)];
+        sensors.decibelsSensorName = decibelSensors[getRandomInt(0, decibelSensors.length)];
     }
     return sensors;
 }
