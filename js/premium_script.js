@@ -1,14 +1,18 @@
 document.addEventListener('DOMContentLoaded', function() {
+    console.log('DOM fully loaded and parsed'); // Debug log
     const userType = localStorage.getItem('userType');
     const userName = localStorage.getItem('userName');
 
     if (userType === null) {
+        console.log('User type is null, redirecting to login'); // Debug log
         window.location.href = 'login.html';
     } else if (userType === 'free') {
+        console.log('User type is free'); // Debug log
         document.getElementById('premium').style.display = 'none';
         document.getElementById('name_navbar').textContent = userName;
         document.getElementById('account').setAttribute('href', 'profile.html');
     } else if (userType === 'premium') {
+        console.log('User type is premium'); // Debug log
         document.getElementById('name_navbar').textContent = userName;
         document.getElementById('account').setAttribute('href', 'profile.html');
         document.getElementById('free').style.display = 'none';
@@ -18,9 +22,11 @@ document.addEventListener('DOMContentLoaded', function() {
     loadTables();
 
     document.getElementById('addAreaBtn').addEventListener('click', function() {
+        console.log('Add area button clicked'); // Debug log
         addNewTable();
     });
 });
+
 
 // Sensor density variable
 const sensorDensity = 5; // Adjust this value as needed
@@ -31,22 +37,30 @@ const no2Sensors = ['DGS2', 'NO2 - Sesotec', '2B Tech - NO2', 'NO2 - Aeroqual'];
 const pm10Sensors = ['DGS2', 'PM10 - Sesotec', 'DustTrak - PM10'];
 const decibelSensors = ['Decibel 1000', 'Toolsonic', 'RAE Systems - Decibel 1310'];
 
+
 function loadTables() {
     const savedTables = JSON.parse(localStorage.getItem('tables')) || [];
+    console.log('Loading tables:', savedTables);  // Debug log
     savedTables.forEach((table, index) => {
         addTabToDOM(table.name, table.coordinates, table.data, index + 1);
     });
 }
 
+
 function addNewTable() {
+    console.log('Adding new table'); // Debug log
     const areaName = document.getElementById('areaName').value || `Table ${tableCount}`;
     const coordinates = JSON.parse(localStorage.getItem('coordinates'));
+    console.log('Coordinates for new table:', coordinates);  // Debug log
+
     if (!coordinates) {
         alert('Please select an area on the map first.');
+        consele.log('No coordinates selected');  // Debug log
         return;
     }
 
     generateTableData(coordinates, sensorDensity).then(tableData => {
+        console.log('Generated table data:', tableData);  // Debug log
         saveTable(areaName, coordinates, tableData);
         addTabToDOM(areaName, coordinates, tableData, tableCount);
     });
@@ -56,9 +70,11 @@ function saveTable(name, coordinates, data) {
     const savedTables = JSON.parse(localStorage.getItem('tables')) || [];
     savedTables.push({ name, coordinates, data });
     localStorage.setItem('tables', JSON.stringify(savedTables));
+    console.log('Saved tables to localStorage:', savedTables);  // Debug log
 }
 
 function addTabToDOM(name, coordinates, data, tabId) {
+    console.log(`Adding table to DOM: ${name}`);  // Debug log
     const tabContainer = document.getElementById('tab-container');
     const newTab = document.createElement('div');
     newTab.className = 'tab-item';
@@ -102,6 +118,7 @@ function addTabToDOM(name, coordinates, data, tabId) {
     document.getElementById('tables-container').appendChild(tablesContainer);
 
     tableCount++;
+    console.log(`Table ${name} added successfully`);  // Debug log
 }
 
 function createTable(title, data, type) {
@@ -201,7 +218,7 @@ function generateSensorData(coordinates) {
 }
 
 async function getDistrictName(lat, lng) {
-    const url = `https://nominatim.openstreetmap.org/reverse?format=jsonv2&lat=${lat}&lon=${lng}`;
+    const url = `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lng}`;
     try {
         const response = await fetch(url);
         const data = await response.json();
