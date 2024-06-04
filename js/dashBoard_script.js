@@ -9,7 +9,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 window.location.href = 'login.html';
 
             } else if (userType === 'free') {
-                document.getElementById('premium').style.display = 'none';
+                
 
                 document.getElementById('name_navbar').textContent = userName;
                 document.getElementById('account').setAttribute('href', 'profile.html');
@@ -18,8 +18,7 @@ document.addEventListener('DOMContentLoaded', function () {
                 name_navbar.textContent = userName;
                 document.getElementById('account').setAttribute('href', 'profile.html');
 
-                document.getElementById('free').style.display = 'none';
-
+                
             }
         });
 
